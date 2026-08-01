@@ -1,0 +1,23 @@
+---
+import MobileNavigation from '@/components/interactive/MobileNavigation';
+import { readSourceBody } from '@/lib/source-page';
+import '../styles/global.css';
+
+const { title, description, sourcePath, canonical } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/assets/698880cb024c5e9e63028528_faicon-32.png" type="image/png" />
+  </head>
+  <body>
+    <Fragment set:html={readSourceBody(sourcePath)} />
+    <MobileNavigation client:load />
+    <script is:inline src="/scripts/site.js"></script>
+  </body>
+</html>
