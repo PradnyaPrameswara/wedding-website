@@ -47,7 +47,7 @@ const revealDelays = new Map([
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function initializeReveals() {
-  const items = [...document.querySelectorAll('[data-w-id]')];
+  const items = [...document.querySelectorAll('[data-w-id]:not(.page-track)')];
 
   items.forEach((item) => {
     const id = item.getAttribute('data-w-id');
@@ -182,10 +182,43 @@ function initializeForms() {
   });
 }
 
+function initializePageFrameScroll() {
+  const track = document.querySelector('.page-track');
+  const camera = track?.querySelector('.page-camera');
+  const frame = track?.querySelector('.page-frame');
+  if (!(track instanceof HTMLElement) || !(camera instanceof HTMLElement) || !(frame instanceof HTMLElement)) return;
+
+  let frameAnimation = 0;
+
+  const updateFrame = () => {
+    frameAnimation = 0;
+    if (window.matchMedia('(max-width: 991px)').matches) {
+      frame.style.transform = 'none';
+      return;
+    }
+
+    const trackRect = track.getBoundingClientRect();
+    const scrollRange = Math.max(track.offsetHeight - camera.offsetHeight, 1);
+    const progress = Math.min(Math.max(-trackRect.top / scrollRange, 0), 1);
+    const horizontalProgress = Math.min(progress / 0.6, 1);
+    frame.style.transform = `translate3d(${-window.innerWidth * 1.2 * horizontalProgress}px, 0, 0)`;
+  };
+
+  const requestFrameUpdate = () => {
+    if (frameAnimation) return;
+    frameAnimation = window.requestAnimationFrame(updateFrame);
+  };
+
+  window.addEventListener('scroll', requestFrameUpdate, { passive: true });
+  window.addEventListener('resize', requestFrameUpdate);
+  updateFrame();
+}
+
 function initializeSite() {
   initializeReveals();
   document.querySelectorAll('.w-slider').forEach(initializeSlider);
   initializeForms();
+  initializePageFrameScroll();
 }
 
 if (document.readyState === 'loading') {

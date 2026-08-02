@@ -7,6 +7,7 @@ The original Webflow HTML/CSS/assets remain the source of truth. Browser evidenc
 - Original fixture: `http://127.0.0.1:4321` with the captured Webflow stylesheet, local original assets, local original fonts, and locally routed audit Webflow bundles.
 - Migrated fixture: `http://127.0.0.1:4322` served by Astro.
 - Captures: `artifacts/original`, `artifacts/migrated`, and `artifacts/comparisons`.
+- Live route: `http://localhost:4321/`, Astro dev server bound to `0.0.0.0:4321`; fresh capture: `artifacts/live/astro-4321-rsvp-viewport-1440.png`.
 - Full-page captures: 8 routes × 7 widths × 2 implementations = 112 screenshots.
 - Home section crops: header, hero, couple, story, events, schedule, RSVP, registry, blog, footer at 375px and 1440px.
 - Geometry/font snapshot: `artifacts/comparisons/geometry.json`.
@@ -30,6 +31,15 @@ Browser proof: the RSVP test compares original and migrated computed family, siz
 The fixture applies a deterministic final-state override to original `[data-w-id]` elements for static screenshot comparison. This avoids the original inline `opacity:0` state making screenshots dependent on Webflow runtime timing. Animation behavior is separately covered by source inspection and migrated runtime tests.
 
 ## Section comparison inventory
+
+### RSVP restoration audit
+
+| Route | Section | Original selector | Migrated component | Typography difference | Size difference | Spacing difference | Animation difference | Responsive difference | Required correction |
+|---|---|---|---|---|---|---|---|---|---|
+| `/` | Countdown boundary | `.counter`, `.counter-text` | Source body in `SourceLayout` | None in captured font contract | Source order preserved | `.counter` remains before `.page-track` | Source counter reveal remains covered by shared observer | Source breakpoints preserved | None |
+| `/` | Event transition | `.page-track > .page-camera > .page-frame > .event` | Source body in `SourceLayout` | None identified | Wrapper hierarchy preserved | Event remains immediately before RSVP | Event item reveals and native slider retained | Source slider breakpoint preserved | None |
+| `/` | RSVP | `#rsvp`, `.rsvp-wrap`, `.rsvp` | Source body in `SourceLayout` | None at tested widths | Computed geometry matches source at 375/640/768/1024/1280/1440/1920 | Form, field, button, and deadline spacing match source contract | No RSVP-specific `data-w-id`; shared source behavior retained | Source 479/767/991/1440/1920 rules preserved | No duplicate restoration required |
+| `/` | Registry boundary | `#gift-2`, `.gift-registry` | Source body in `SourceLayout` | None identified | Follows RSVP in source order | RSVP wrapper closes before registry starts | Registry reveals retained | Source breakpoints preserved | None |
 
 | Route | Section | Original selector | Migrated component | Typography difference | Size difference | Spacing difference | Animation difference | Responsive difference | Required correction |
 |---|---|---|---|---|---|---|---|---|---|
@@ -60,6 +70,12 @@ Each cell means both original and migrated full-page screenshots were captured a
 | `/admin-page/change-log/` | MINOR DIFFERENCE | MINOR DIFFERENCE | MINOR DIFFERENCE | MINOR DIFFERENCE | MINOR DIFFERENCE | MINOR DIFFERENCE | MINOR DIFFERENCE |
 
 ## Browser interaction evidence
+
+- Live RSVP visibility: PASS. Fresh Playwright run against `http://localhost:4321/` confirmed display block, visible state, opacity 1, width 1728px, height 1000px, RSVP panel height 889px, complete form content, and no console/page errors.
+- Live root cause: two servers shared port 4321 across IPv4/IPv6, then generic reveal CSS targeted structural `.page-track`. Its opacity/transform plus sticky `.page-camera` clipping made RSVP appear absent. `.page-track` is now excluded from generic reveals, and native vertical scroll drives horizontal frame translation.
+- Fresh screenshot visibly contains RSVP background, translucent panel, SA emblem, title, fields, button, and deadline: `artifacts/live/astro-4321-rsvp-viewport-1440.png`.
+- Comment target font audit: PASS. Live original/Astro comparison test confirms exact computed typography for navigation, story label, event time, event title, and event description. No font replacement was made because current local Allura/Gilda Display/Inter Tight mapping already matches source.
+- Event animation contract: source Webflow `slideInBottom` uses opacity `0` plus `translateY(100px)` to opacity `1` plus `translateY(0)`, `1000ms`, `outQuart`; Astro uses the same initial/final state and duration through shared CSS/IntersectionObserver initialization. Story/event comments must be captured after reveal completion.
 
 - Mobile navigation: PASS. Toggle opens/closes, uses corrected `×`/`☰` glyphs, preserves `aria-expanded`, and keeps closed links out of tab order.
 - Reveal: PASS. A migrated reveal target reaches `data-visible="true"` and computed opacity `1`; transformed hero CTA targets are caught by the scroll fallback.
