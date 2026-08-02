@@ -11,6 +11,10 @@
 - Added Playwright dual-server capture and runtime tests covering all eight routes at all seven required widths.
 - Audited the complete local font contract, disabled synthetic font generation at the document root, and added RSVP parity regression/capture coverage at all seven required widths.
 - Confirmed the RSVP section was already preserved by the source-body loader and built output; restored trustworthy original-fixture screenshots by injecting the captured CSS after its SRI-protected CDN link and routing local `/assets/*` requests.
+- Re-audited the reported omission: source document order is `Counting Down to “I Do”` → event wrapper → RSVP → gift registry. The existing Astro output preserves that hierarchy, so no duplicate RSVP markup was added.
+- Added explicit RSVP/countdown boundary evidence to the migration inventory and parity report, including the distinction between the original comment URL (`:5500`) and the Astro test fixture (`:4322`).
+- Fixed live-route RSVP visibility: excluded `.page-track` from generic reveal initialization, restored native vertical-to-horizontal page-frame motion, added `data-rsvp-section`, and added a live `localhost:4321` visibility/screenshot test.
+- Audited live browser comment targets against original computed styles; nav, story label, and event typography already match, so no visual font override was introduced. Added live comparison coverage to prevent font drift.
 
 ## Architecture
 
@@ -38,5 +42,6 @@
 
 - The large captured Webflow stylesheet remains active as a temporary compatibility layer; it has not yet been fully translated into component-owned Tailwind styles.
 - Exact continuous story `a-2` scroll-linked motion and every original IX2 timeline are documented but not fully reproduced.
+- Page-frame motion now runs through a small native scroll initializer; exact Webflow easing/timing remains approximate.
 - Screenshots are captured and representative crops were inspected, but no numeric image-diff threshold is reported; parity statuses remain `MINOR DIFFERENCE` where measured geometry differs.
 - RSVP submission remains a native browser form only; no remote Webflow endpoint or successful submission state is claimed.

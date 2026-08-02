@@ -339,6 +339,37 @@ test('RSVP section preserves the original structure, form contract, and computed
   await context.close();
 });
 
+test('RSVP remains between the countdown/event flow and gift registry', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const original = await context.newPage();
+  const migrated = await context.newPage();
+
+  await configureOriginalPage(original);
+  await original.goto(`${originalBase}/index.html`, { waitUntil: 'domcontentloaded' });
+  await original.addStyleTag({ path: join(process.cwd(), 'audit-webflow.css') });
+  await original.addStyleTag({ content: originalFontCss });
+  await settlePage(original);
+  await migrated.goto(`${migratedBase}/`, { waitUntil: 'domcontentloaded' });
+  await settlePage(migrated);
+
+  const readOrder = async (page: Page) => page.evaluate(() => {
+    const body = document.body;
+    const selectors = ['.counter', '.page-track', '.event', '#rsvp', '#gift-2'];
+    return selectors.map((selector) => {
+      const element = body.querySelector(selector);
+      if (!element) throw new Error(`Missing source-order selector: ${selector}`);
+      return { selector, top: element.getBoundingClientRect().top };
+    });
+  });
+
+  const originalOrder = await readOrder(original);
+  const migratedOrder = await readOrder(migrated);
+  expect(migratedOrder.map(({ selector }) => selector)).toEqual(['.counter', '.page-track', '.event', '#rsvp', '#gift-2']);
+  expect(originalOrder.map(({ selector }) => selector)).toEqual(migratedOrder.map(({ selector }) => selector));
+  expect(migratedOrder.map(({ top }) => top)).toEqual([...migratedOrder.map(({ top }) => top)].sort((a, b) => a - b));
+  await context.close();
+});
+
 test('RSVP section matches the source at every required viewport', async ({ browser }) => {
   test.setTimeout(180_000);
   const snapshots: Record<string, unknown> = {};

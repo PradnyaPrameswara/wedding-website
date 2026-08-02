@@ -20,6 +20,7 @@
 ## RSVP Section Inventory
 
 - Route: `/` only; source order is after `.event` and before `.gift-registry`.
+- Boundary audit: the authoritative source order is `.counter` (`Counting Down to “I Do”`) → `.page-track`/`.page-camera`/`.page-frame` → `.event` → `#rsvp` → `#gift-2`. RSVP is not a child of `.counter` and is not a footer section.
 - Original selectors: `#rsvp`, `.rsvp-wrap`, `.rsvp`, `.esvp-row`, `.rsvp-form-wrap`, `.rsvp-form-top`, `.cta-form-wrap-two`, `.cta-form`, `.input-wrap`, `.cta-form-input.three`, `.rsvp-item-wrap`, `.rsvp-btn-wrap`, `.message`, `.success-message-2`, and `.error-msg`.
 - Astro ownership: the existing `SourceLayout` source-body loader preserves this original static markup; no duplicate RSVP component was introduced.
 - Fields: `name`, `email`, `field` (1–4 guests), `What-Will-You-Be-Attending`, `Meal-Preferences`, and `Submit RSVP`.
@@ -29,6 +30,9 @@
 - Interaction: native required-field/email validation and submit class behavior are retained. Webflow’s remote form runtime is not shipped; no successful network submission is claimed.
 - Animation: RSVP has no source `data-w-id` reveal target. The surrounding page retains the shared reveal system, reduced-motion behavior, and source hover treatment for the button artwork.
 - Diagnosis: the reported missing RSVP column was stale in this checkout. The section already existed in the source-body loader and built HTML; the correction was baseline-fixture asset/CSS routing plus browser regression coverage, not duplicate markup.
+- Browser note: the supplied comment URL (`127.0.0.1:5500/index.html`) is the original HTML fixture. The migrated Astro fixture is verified separately at `127.0.0.1:4322` by Playwright.
+- Live runtime diagnosis: `localhost:4321` had simultaneous Python fixture listeners on IPv4 and Astro on IPv6. After binding Astro to `0.0.0.0:4321`, generic `[data-w-id]` reveal on structural `.page-track` was also fixed; its opacity/transform plus `.page-camera` clipping had obscured the horizontal frame.
+- Comment target audit: live original and Astro computed contracts match for `.menu`, `.story-top .section-title-text`, `.event-time`, `.event-title`, and `.event-item-text` (family, size, weight, line-height, letter-spacing, and text transform). Story-label opacity/transform difference was only capture timing: original comment is post-reveal; Astro was sampled before IntersectionObserver reveal.
 
 ## Animation inventory
 

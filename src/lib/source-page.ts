@@ -13,6 +13,7 @@ export function readSourceBody(sourcePath: string): string {
       const name = decodeURIComponent(url.split('/').pop() ?? '');
       return `/assets/${name}`;
     })
+    .replace(/id="rsvp"/i, 'id="rsvp" data-rsvp-section')
     .replace(/\sstyle="opacity:0"/g, '')
     .replace(/<script[\s\S]*?<\/script>/gi, '');
 }
