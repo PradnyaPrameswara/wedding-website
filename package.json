@@ -8,7 +8,9 @@
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "astro check",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "playwright test",
+    "test:visual": "playwright test tests/visual-parity.spec.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
