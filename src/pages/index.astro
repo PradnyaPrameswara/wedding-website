@@ -1,9 +1,11 @@
 ---
-import SourceLayout from '@/layouts/SourceLayout.astro';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import HomePage from '@/components/pages/HomePage.astro';
 ---
-<SourceLayout
+<SiteLayout
   title="Sara Alderson - Webflow HTML website template"
   description="Join Sarah Williams and Michael Alderson as they celebrate their wedding on June 22, 2026 at Rosewood Garden, California. RSVP now for ceremony and reception."
-  sourcePath="../../index.html"
   canonical="/"
-/>
+>
+  <HomePage />
+</SiteLayout>
