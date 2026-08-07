@@ -1,334 +1,153 @@
-@import '../../audit-webflow.css';
-
-@font-face {
-  font-family: 'Allura';
-  src: url('/fonts/9oRPNYsQpS4zjuAPjA.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gilda Display';
-  src: url('/fonts/t5tmIRoYMoaYG0WEOh7HwMeR7Tk.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mj0QiqXA.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mj6AiqXA.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjDw-qXA.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjPQ-qXA.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjUQ-qXA.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGShv5HMAFg6IuGlBNMjxLsC66ZMtb8hyW62x0wcHy5X.ttf') format('truetype');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGShv5HMAFg6IuGlBNMjxLsC66ZMtb8hyW62x0xCHy5X.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGShv5HMAFg6IuGlBNMjxLsC66ZMtb8hyW62x0xwHy5X.ttf') format('truetype');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGShv5HMAFg6IuGlBNMjxLsC66ZMtb8hyW62x0ycGC5X.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  src: url('/fonts/NGShv5HMAFg6IuGlBNMjxLsC66ZMtb8hyW62x0ylGC5X.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
+@import './fonts.css';
+@import './tokens.css';
+@import './site.css';
+@import './motion.css';
+@import './components/slider.css';
+@import './components/mobile-navigation.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Original Webflow rules remain isolated as a visual compatibility layer. */
-
-/* Tailwind preflight runs after the imported source CSS. Re-state the source
-   heading contract here so preflight cannot collapse the original scale. */
-h1 {
-  margin: 0;
-  font-family: var(--_size---h1--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h1--font-size);
-  line-height: var(--_size---h1--line-height);
-  font-weight: var(--_size---h1--font-weight);
-  letter-spacing: var(--_size---h1--letter-spacing);
-  text-transform: uppercase;
-}
-
-h2 {
-  margin: 0;
-  font-family: var(--_size---h2--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h2--font-size);
-  line-height: var(--_size---h2--line-height);
-  font-weight: var(--_size---h2--font-weight);
-  letter-spacing: var(--_size---h2--letter-spacing);
-  text-transform: uppercase;
-}
-
-h3 {
-  margin: 0;
-  font-family: var(--_size---h3--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h3--font-size);
-  line-height: var(--_size---h3--line-height);
-  font-weight: var(--_size---h3--font-weight);
-  letter-spacing: var(--_size---h3--letter-spacing);
-  text-transform: uppercase;
-}
-
-h4 {
-  margin: 0;
-  font-family: var(--_size---h4--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h4--font-size);
-  line-height: var(--_size---h4--line-height);
-  font-weight: var(--_size---h4--font-weight);
-  letter-spacing: var(--_size---h4--letter-spacing);
-  text-transform: uppercase;
-}
-
-h5 {
-  margin: 0;
-  font-family: var(--_size---h5--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h5--font-size);
-  line-height: var(--_size---h4--line-height);
-  font-weight: var(--_size---h5--font-weight);
-  letter-spacing: var(--_size---h6--letter-spacing);
-  text-transform: uppercase;
-}
-
-h6 {
-  margin: 0;
-  font-family: var(--_size---h6--font-family);
-  color: var(--_colors---theme-primary-color);
-  font-size: var(--_size---h6--font-size);
-  line-height: var(--_size---h6--line-height);
-  font-weight: var(--_size---h6--font-weight);
-  letter-spacing: var(--_size---h6--letter-spacing);
-  text-transform: uppercase;
-}
-
-:root {
-  --site-ink: #1e1e1e;
-  --site-paper: #f7f5f0;
-  --site-container: 1320px;
-  --font-display: 'Gilda Display', sans-serif;
-  --font-script: 'Allura', sans-serif;
-  --font-body: 'Inter Tight', sans-serif;
-  --text-body: 16px;
-  --leading-body: 155%;
-  --tracking-body: -0.32px;
-  --text-h1: 128px;
-  --leading-h1: 88%;
-  --text-h2: 88px;
-  --leading-h2: 97%;
-  --text-h3: 70px;
-  --leading-heading: 110%;
-  --text-caption: 22px;
-  --leading-caption: 155%;
-}
-
 html {
-  scroll-behavior: smooth;
-  font-synthesis: none;
+  overflow-x: clip;
+}
+
+.page-wrapper {
+  overflow-x: clip;
 }
 
 body {
+  overflow-x: clip;
+  background-color: var(--site-paper);
   font-family: var(--font-body);
   font-size: var(--text-body);
+  font-weight: var(--_size---p1-body--font-weight);
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-body);
 }
 
-[data-w-id]:not(.page-track) {
-  opacity: 0;
-  transform: translate3d(0, 100px, 0);
-  transition: opacity 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transition-delay: var(--reveal-delay, 0ms);
+/* Footer text inherits the source footer's light foreground. The old export
+   relied on body inheritance; make that ownership explicit in Astro. */
+.footer {
+  color: var(--_colors---text-light-2);
+  font-weight: 400;
 }
 
-[data-w-id]:not(.page-track)[data-visible='true'] {
-  opacity: 1;
-  transform: none;
+.footer .hero-link-text {
+  color: var(--_colors---text-light-2);
 }
 
-.hero-link-wrap-02 .btn-bg {
-  transform: rotateX(0deg);
-  transform-origin: center;
-  transition: transform 500ms ease;
+.footer .footer-top-text-p,
+.footer .hero-link-text,
+.footer .footer-item-bottom-text,
+.footer .footer-link {
+  font-weight: 400;
 }
 
-.hero-link-wrap-02:hover .btn-bg,
-.hero-link-wrap-02:focus-within .btn-bg { transform: rotateX(180deg); }
-
-.testimonial-top .testimonial-img-one,
-.testimonial-top .testimonial-img-three,
-.testimonial-top .testimonial-img-four,
-.testimonial-top .testimonial-img-five,
-.testimonial-top .testimonial-img-six,
-.testimonial-top .testimonial-img-seven {
-  transition: transform 500ms ease;
+.footer .call-text,
+.footer .hero-link-wrap-02 {
+  font-weight: 500;
 }
 
-.testimonial-top .testimonial-img-one { transform: translateX(-50px); }
-.testimonial-top .testimonial-img-three { transform: translateX(-150px); }
-.testimonial-top .testimonial-img-four { transform: translateX(-200px); }
-.testimonial-top .testimonial-img-five { transform: translateX(50px); }
-.testimonial-top .testimonial-img-six { transform: translateX(150px); }
-.testimonial-top .testimonial-img-seven { transform: translateX(200px); }
+p {
+  margin-bottom: 0;
+  color: var(--_colors---theme-primary-color);
+  font-family: var(--_size---p1-body--font-family);
+  font-size: var(--_size---p1-body--font-size);
+  font-weight: var(--_size---p1-body--font-weight);
+  letter-spacing: var(--_size---p1-body--letter-spacing);
+  line-height: var(--_size---p1-body--line-height);
+}
 
-.testimonial-top[data-visible='true'] .testimonial-img-one { transform: translateX(0) rotate(3.87deg); }
-.testimonial-top[data-visible='true'] .testimonial-img-three { transform: translateX(0) rotate(7.45deg); }
-.testimonial-top[data-visible='true'] .testimonial-img-four { transform: translateX(0) rotate(11.04deg); }
-.testimonial-top[data-visible='true'] .testimonial-img-five { transform: translateX(0) rotate(-3.35deg); }
-.testimonial-top[data-visible='true'] .testimonial-img-six { transform: translateX(0) rotate(-7.45deg); }
-.testimonial-top[data-visible='true'] .testimonial-img-seven { transform: translateX(0) rotate(-11.56deg); }
+.cta-form-input,
+.cta-form-input::placeholder,
+select,
+option {
+  font-weight: 300;
+}
 
-@media screen and (max-width: 991px) {
-  :root {
-    --text-h1: 100px;
-    --text-h2: 77px;
-    --text-h3: 60px;
-    --text-caption: 20px;
+/* Blog metadata and CTA text render at the source page's inherited 400 weight.
+   Keep this correction scoped so body-copy roles elsewhere retain their 300
+   contract. */
+.blog-02 .section-title-text,
+.blog-02 .blog-collection-date,
+.blog-02 .blog-link-text {
+  font-weight: 400;
+}
+
+/* Tailwind preflight runs after imported source CSS. Re-state source heading
+   contract so preflight cannot collapse original scale. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--_colors---theme-primary-color);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: var(--_size---h1--font-family);
+  font-size: var(--_size---h1--font-size);
+  line-height: var(--_size---h1--line-height);
+  font-weight: var(--_size---h1--font-weight);
+  letter-spacing: var(--_size---h1--letter-spacing);
+}
+
+h2 {
+  font-family: var(--_size---h2--font-family);
+  font-size: var(--_size---h2--font-size);
+  line-height: var(--_size---h2--line-height);
+  font-weight: var(--_size---h2--font-weight);
+  letter-spacing: var(--_size---h2--letter-spacing);
+}
+
+h3 {
+  font-family: var(--_size---h3--font-family);
+  font-size: var(--_size---h3--font-size);
+  line-height: var(--_size---h3--line-height);
+  font-weight: var(--_size---h3--font-weight);
+  letter-spacing: var(--_size---h3--letter-spacing);
+}
+
+h4 {
+  font-family: var(--_size---h4--font-family);
+  font-size: var(--_size---h4--font-size);
+  line-height: var(--_size---h4--line-height);
+  font-weight: var(--_size---h4--font-weight);
+  letter-spacing: var(--_size---h4--letter-spacing);
+}
+
+h5 {
+  font-family: var(--_size---h5--font-family);
+  font-size: var(--_size---h5--font-size);
+  line-height: var(--_size---h4--line-height);
+  font-weight: var(--_size---h5--font-weight);
+  letter-spacing: var(--_size---h6--letter-spacing);
+}
+
+h6 {
+  font-family: var(--_size---h6--font-family);
+  font-size: var(--_size---h6--font-size);
+  line-height: var(--_size---h6--line-height);
+  font-weight: var(--_size---h6--font-weight);
+  letter-spacing: var(--_size---h6--letter-spacing);
+}
+
+/* Source parity: Tailwind's px-5 utility must yield the Webflow 1440px
+   section inset after utility generation. */
+@media screen and (min-width: 1440px) {
+  .header,
+  .story,
+  .hero-wrap {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
-@media screen and (max-width: 479px) {
-  :root {
-    --text-h1: 50px;
-    --text-h2: 42px;
-    --text-h3: 40px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-.astro-mobile-nav { display: none; }
-
-@media screen and (max-width: 991px) {
-  .menu-button { display: none !important; }
-
-  .astro-mobile-nav {
-    display: block;
-    position: fixed;
-    inset: 20px 20px auto auto;
-    z-index: 1000;
-  }
-
-  .astro-mobile-nav__toggle {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    color: var(--site-ink);
-    background: var(--site-paper);
-    border: 1px solid currentColor;
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  .astro-mobile-nav__menu {
-    display: grid;
-    gap: 10px;
-    min-width: 220px;
-    margin-top: 8px;
-    padding: 18px;
-    background: var(--site-paper);
-    border: 1px solid currentColor;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-8px);
-    visibility: hidden;
-    transition: opacity 500ms ease, transform 500ms ease, visibility 0s linear 500ms;
-  }
-
-  .astro-mobile-nav__menu[data-open='true'] {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-    visibility: visible;
-    transition-delay: 0s;
-  }
-
-  .astro-mobile-nav__menu a { color: inherit; text-decoration: none; }
-  .astro-mobile-nav__menu a:focus-visible,
-  .astro-mobile-nav__toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-w-id] {
-    opacity: 1;
-    transform: none;
-  }
+.counter-bg-shap {
+  background-image: linear-gradient(180deg, var(--_colors---overlay-one), var(--_colors---overlay-two));
 }

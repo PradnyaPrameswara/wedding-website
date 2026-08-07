@@ -47,10 +47,10 @@ const revealDelays = new Map([
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function initializeReveals() {
-  const items = [...document.querySelectorAll('[data-w-id]:not(.page-track)')];
+  const items = [...document.querySelectorAll('[data-motion="reveal"]:not(.page-track)')];
 
   items.forEach((item) => {
-    const id = item.getAttribute('data-w-id');
+    const id = item.getAttribute('data-motion-id');
     item.style.setProperty('--reveal-delay', `${revealDelays.get(id) ?? 0}ms`);
   });
 
@@ -86,17 +86,17 @@ function initializeReveals() {
 function initializeSlider(slider) {
   if (slider.dataset.astroSliderInitialized === 'true') return;
 
-  const track = slider.querySelector('.w-slider-mask');
-  const slides = [...slider.querySelectorAll('.w-slide')];
+  const track = slider.querySelector('.content-slider__viewport');
+  const slides = [...slider.querySelectorAll('.content-slider__slide')];
   if (!track || slides.length < 2) return;
 
   slider.dataset.astroSliderInitialized = 'true';
-  const duration = Number(slider.getAttribute('data-duration') ?? 500);
-  const delay = Number(slider.getAttribute('data-delay') ?? 4000);
+  const duration = Number(slider.getAttribute('data-slider-duration') ?? 500);
+  const delay = Number(slider.getAttribute('data-slider-delay') ?? 4000);
   const infinite = slider.getAttribute('data-infinite') !== 'false';
-  const arrowPrevious = slider.querySelector('.w-slider-arrow-left');
-  const arrowNext = slider.querySelector('.w-slider-arrow-right');
-  const nav = slider.querySelector('.w-slider-nav');
+  const arrowPrevious = slider.querySelector('.content-slider__arrow--previous');
+  const arrowNext = slider.querySelector('.content-slider__arrow--next');
+  const nav = slider.querySelector('.content-slider__pagination');
   let current = 0;
   let autoplay = 0;
   let pointerStart = null;
@@ -113,7 +113,7 @@ function initializeSlider(slider) {
     if (!nav) return null;
     const dot = document.createElement('button');
     dot.type = 'button';
-    dot.className = 'astro-slider-dot';
+    dot.className = 'content-slider__dot';
     dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
     dot.addEventListener('click', () => goTo(index));
     nav.append(dot);
@@ -216,7 +216,7 @@ function initializePageFrameScroll() {
 
 function initializeSite() {
   initializeReveals();
-  document.querySelectorAll('.w-slider').forEach(initializeSlider);
+  document.querySelectorAll('.content-slider').forEach(initializeSlider);
   initializeForms();
   initializePageFrameScroll();
 }
